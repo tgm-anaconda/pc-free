@@ -16,7 +16,9 @@ btn.addEventListener('click', async () => {
     });
     const data = await res.json();
 
-    if (data.sent > 0) {
+    if (!data.ok) {
+      statusEl.textContent = 'Fehler vom Server: ' + data.error;
+    } else if (data.sent > 0) {
       statusEl.textContent = 'Nachricht gesendet!';
     } else {
       statusEl.textContent = 'Gesendet, aber noch niemand hat Benachrichtigungen aktiviert.';
