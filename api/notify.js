@@ -1,7 +1,4 @@
 const webpush = require('web-push');
-const { Redis } = require('@upstash/redis');
-
-const redis = Redis.fromEnv();
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -13,6 +10,17 @@ module.exports = async (req, res) => {
       return res.status(500).json({ ok: false, error: 'VAPID_PUBLIC_KEY/VAPID_PRIVATE_KEY fehlen in den Vercel-Umgebungsvariablen.' });
     }
 
+    if (!process.env.PUSH_SUBSCRIPTION) {
+      return res.status(500).json({ ok: false, error: 'PUSH_SUBSCRIPTION fehlt in den Vercel-Umgebungsvariablen. Erst auf der Abo-Seite "Benachrichtigungen aktivieren" ausfuehren und den kopierten Text dort eintragen.' });
+    }
+
+    let subscription;
+    try {
+      subscription = JSON.parse(process.env.PUSH_SUBSCRIPTION);
+    } catch (err) {
+      return res.status(500).json({ ok: false, error: 'PUSH_SUBSCRIPTION ist kein gueltiges JSON: ' + err.message });
+    }
+
     webpush.setVapidDetails(
       'mailto:' + (process.env.CONTACT_EMAIL || 'test@example.com'),
       process.env.VAPID_PUBLIC_KEY.trim(),
@@ -20,7 +28,6 @@ module.exports = async (req, res) => {
     );
 
     const { von, bis } = req.body || {};
-    const list = (await redis.get('subscriptions')) || [];
 
     let body = 'Der PC ist jetzt frei.';
     if (von && bis) body = `Der PC ist von ${von} bis ${bis} Uhr frei.`;
@@ -28,20 +35,9 @@ module.exports = async (req, res) => {
 
     const payload = JSON.stringify({ title: 'PC ist frei', body });
 
-    let sent = 0;
-    const stillValid = [];
-    for (const sub of list) {
-      try {
-        await webpush.sendNotification(sub, payload);
-        stillValid.push(sub);
-        sent++;
-      } catch (err) {
-        // Abo ist abgelaufen/ungueltig -> wird nicht wieder aufgenommen
-      }
-    }
-    await redis.set('subscriptions', stillValid);
+    await webpush.sendNotification(subscription, payload);
 
-    res.status(200).json({ ok: true, sent });
+    res.status(200).json({ ok: true, sent: 1 });
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
   }
