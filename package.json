@@ -1,0 +1,12 @@
+{
+  "name": "pc-frei-melden",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "generate-keys": "node generate-keys.js"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.34.3",
+    "web-push": "^3.6.7"
+  }
+}

@@ -1,0 +1,9 @@
+Bookmarklet fuer den Sende-Button (Dad):
+
+1. Zuerst bei Netlify deployen und die echte Adresse notieren, z.B. https://pc-frei-melden.netlify.app
+2. In der Zeile unten "deine-adresse.netlify.app" durch die echte Adresse ersetzen.
+3. Lesezeichenleiste im Browser einblenden (Chrome/Edge: Strg+Umschalt+B).
+4. Rechtsklick auf die Leiste -> "Seite hinzufuegen" -> Name z.B. "PC frei melden", als URL den kompletten Code unten einfuegen.
+5. Klick auf das Lesezeichen oeffnet ein kleines Popup-Fenster statt eines vollen Tabs.
+
+javascript:(function(){window.open('https://deine-adresse.netlify.app/send.html','pcfrei','width=340,height=460,resizable=yes,scrollbars=no,status=no,toolbar=no,menubar=no,location=no');})();
