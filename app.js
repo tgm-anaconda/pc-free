@@ -31,13 +31,11 @@ async function subscribe() {
       applicationServerKey: urlBase64ToUint8Array(publicKey),
     });
 
-    await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(subscription),
-    });
+    const subscriptionText = JSON.stringify(subscription);
+    document.getElementById('subscriptionBox').value = subscriptionText;
+    document.getElementById('subscriptionWrap').style.display = 'block';
 
-    statusEl.textContent = 'Fertig! Du bekommst jetzt Bescheid, wenn der PC frei ist.';
+    statusEl.textContent = 'Fast fertig! Kopiere den Text unten und schick ihn an die Person, die die Sende-Seite einrichtet.';
     btn.disabled = true;
   } catch (err) {
     statusEl.textContent = 'Fehler: ' + err.message;
@@ -45,3 +43,14 @@ async function subscribe() {
 }
 
 btn.addEventListener('click', subscribe);
+
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  const box = document.getElementById('subscriptionBox');
+  box.select();
+  try {
+    await navigator.clipboard.writeText(box.value);
+    statusEl.textContent = 'In die Zwischenablage kopiert!';
+  } catch (err) {
+    statusEl.textContent = 'Kopieren nicht moeglich, bitte den Text manuell markieren.';
+  }
+});
