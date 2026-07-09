@@ -1,0 +1,12 @@
+{
+  "name": "pc-frei-melden",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "generate-keys": "node generate-keys.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^7.3.0",
+    "web-push": "^3.6.7"
+  }
+}
