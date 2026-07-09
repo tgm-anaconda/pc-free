@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PC frei melden - Senden</title>
+<style>
+  body {
+    font-family: -apple-system, system-ui, sans-serif;
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 0 20px;
+    color: #1a1a1a;
+  }
+  label {
+    display: block;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #444;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 4px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  button {
+    background: #2f6fed;
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    font-size: 17px;
+    border-radius: 12px;
+    width: 100%;
+    margin-top: 24px;
+  }
+  p#status {
+    margin-top: 20px;
+    color: #444;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <h1>PC frei melden</h1>
+  <label>Von (optional)
+    <input type="time" id="von" />
+  </label>
+  <label>Bis (optional)
+    <input type="time" id="bis" />
+  </label>
+  <button id="sendBtn">Nachricht senden</button>
+  <p id="status"></p>
+  <script src="/send.js"></script>
+</body>
+</html>

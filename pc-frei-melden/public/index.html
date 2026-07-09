@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PC Frei Melden</title>
+<link rel="manifest" href="/manifest.json" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="PC Frei" />
+<meta name="theme-color" content="#2f6fed" />
+<style>
+  body {
+    font-family: -apple-system, system-ui, sans-serif;
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+    color: #1a1a1a;
+  }
+  button {
+    background: #2f6fed;
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    font-size: 17px;
+    border-radius: 12px;
+    width: 100%;
+    margin-top: 24px;
+  }
+  button:disabled {
+    background: #9db6ee;
+  }
+  p#status {
+    margin-top: 20px;
+    color: #444;
+  }
+</style>
+</head>
+<body>
+  <h1>PC frei melden</h1>
+  <p>Aktiviere Benachrichtigungen, damit du automatisch Bescheid bekommst, wenn der PC frei ist.</p>
+  <button id="enableBtn">Benachrichtigungen aktivieren</button>
+  <p id="status"></p>
+  <script src="/app.js"></script>
+</body>
+</html>
